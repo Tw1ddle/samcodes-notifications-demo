@@ -139,8 +139,10 @@ class Notification {
 	 * Schedule the notification
 	 */
 	public function schedule():Void {
-		#if (android || ios)
-		Notifications.scheduleLocalNotification(slot, delay, "Werewolf Tycoon", message, "Subtitle Text", "Ticker Text");
+		#if android
+		Notifications.scheduleLocalNotification(slot, delay, "Werewolf Tycoon Android", message, "Subtitle Text", "Ticker Text");
+		#elseif ios
+		Notifications.scheduleLocalNotification(slot, delay, "Werewolf Tycoon iOS", message, "Action Button Text");
 		#end
 	}
 	
