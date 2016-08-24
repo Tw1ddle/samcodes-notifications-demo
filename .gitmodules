@@ -1,0 +1,3 @@
+[submodule "lib/samcodes-notifications"]
+	path = lib/samcodes-notifications
+	url = https://github.com/Tw1ddle/samcodes-notifications
