@@ -63,7 +63,7 @@ class PlayState extends FlxState {
 				addText("Set application icon badge count to: " + count);
 			} else {
 				addText("Failed to set application icon badge count to: " + count);
-				addText("ShortcutBadger issue, or unsupported device?");
+				addText("Library issue or unsupported device?");
 			}
 			#end
 		});
@@ -153,7 +153,7 @@ class Notification {
 	private static var notificationsCreated:Int = 0;
 	
 	// Maximum notification slot index.
-	// Android note - see this haxelib's AndroidManifest.xml - by default it pnly defines 0 through <action android:name="::APP_PACKAGE::.Notification9"/> on Android
+	// Android note - see the haxelib's AndroidManifest.xml - by default we only define 0 through <action android:name="::APP_PACKAGE::.Notification9"/> on Android
 	private static inline var MAX_NOTIFICATION_SLOTS:Int = 10;
 	
 	public var id(default, null):Int; // Unique id for counting the notifications created so far
