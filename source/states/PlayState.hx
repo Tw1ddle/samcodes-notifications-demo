@@ -171,7 +171,7 @@ class Notification {
 	 */
 	public function schedule():Void {
 		#if android
-		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo Android", message, "Demo Subtitle Text", "Demo Ticker Text", true);
+		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo Android", "Demo Subtitle Text", message, "Demo Ticker Text", true);
 		#elseif ios
 		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo iOS", message, "Demo Action Button Text", true);
 		#end
