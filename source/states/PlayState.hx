@@ -24,12 +24,6 @@ class PlayState extends FlxState {
 		eventText = new FlxText();
 		add(eventText);
 		
-		addText("Will setup bindings...");
-		#if (android || ios)
-		Notifications.init();
-		#end
-		addText("Did setup bindings...");
-		
 		Lib.current.stage.addEventListener(Event.ACTIVATE, function(p:Dynamic):Void {
 			addText("App received ACTIVATE event");
 			#if (android || ios)
