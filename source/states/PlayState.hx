@@ -12,15 +12,13 @@ import openfl.events.Event;
 
 class PlayState extends FlxState {
 	private var eventText:FlxText; // Event log text in top left of screen
-	private var notificationButtons:Array<NotificationButton> = []; // Buttons to manage/cancel notifications in top right of the screen
+	private var notificationButtons:Array<BigButton> = []; // Buttons to manage/cancel notifications in top right of the screen
 	
 	/**
 	 * Setup the demo state
 	 */
 	override public function create():Void {
 		super.create();
-		destroySubStates = false;
-		
 		bgColor = FlxColor.BLACK;
 		
 		eventText = new FlxText();
@@ -30,10 +28,13 @@ class PlayState extends FlxState {
 		#if (android || ios)
 		Notifications.init();
 		#end
-		addText("Setup bindings...");
+		addText("Did setup bindings...");
 		
 		Lib.current.stage.addEventListener(Event.ACTIVATE, function(p:Dynamic):Void {
 			addText("App received ACTIVATE event");
+			#if (android || ios)
+			addText("Current badge count is reported as: " + Notifications.getApplicationIconBadgeNumber());
+			#end
 		});
 		Lib.current.stage.addEventListener(Event.DEACTIVATE, function(p:Dynamic):Void {
 			addText("App received DEACTIVATE event");
@@ -53,17 +54,53 @@ class PlayState extends FlxState {
 		clearNotificationsButton.x = FlxG.width - clearNotificationsButton.width - 100;
 		clearNotificationsButton.y = FlxG.height - clearNotificationsButton.height - 20;
 		add(clearNotificationsButton);
+		
+		var setRandomBadgeCountButton = new BigButton("Set Random Badge Count", function() {
+			#if (android || ios)
+			var count:Int = Std.int(Math.random() * 10);
+			var success = Notifications.setApplicationIconBadgeNumber(count);
+			if (success) {
+				addText("Set application icon badge count to: " + count);
+			} else {
+				addText("Failed to set application icon badge count to: " + count);
+				addText("ShortcutBadger issue, or unsupported device?");
+			}
+			#end
+		});
+		setRandomBadgeCountButton.screenCenter(FlxAxes.XY);
+		setRandomBadgeCountButton.x -= 150;
+		add(setRandomBadgeCountButton);
+		
+		var clearBadgeCountButton = new BigButton("Clear Badge Count", function() {
+			#if (android || ios)
+			var success = Notifications.setApplicationIconBadgeNumber(0);
+			if (success) {
+				addText("Cleared application icon badge count");
+			} else {
+				addText("Failed to clear application icon badge count");
+				addText("ShortcutBadger issue, or unsupported device?");
+			}
+			#end
+		});
+		clearBadgeCountButton.screenCenter(FlxAxes.XY);
+		clearBadgeCountButton.x += 150;
+		add(clearBadgeCountButton);
 	}
 	
 	/**
 	 * Create and schedule a new notification
 	 */
 	private function addNotification():Void {
-		var notification = new Notification(5000);
+		var notification = new Notification(180000);
 		notification.schedule();
 		addText("Added notification '" + notification.message + "' will fire in " + notification.delay + " milliseconds");
 		
-		var button = new NotificationButton(notification, function() {});
+		var button = new BigButton(notification.message, function() {
+			#if (android || ios)
+			addText("Cancelled notification slot: " + notification.id);
+			Notifications.cancelLocalNotification(notification.id);
+			#end
+		});
 		notificationButtons.push(button);
 		add(button);
 	}
@@ -140,9 +177,9 @@ class Notification {
 	 */
 	public function schedule():Void {
 		#if android
-		Notifications.scheduleLocalNotification(slot, delay, "Werewolf Tycoon Android", message, "Subtitle Text", "Ticker Text");
+		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo Android", message, "Demo Subtitle Text", "Demo Ticker Text", true);
 		#elseif ios
-		Notifications.scheduleLocalNotification(slot, delay, "Werewolf Tycoon iOS", message, "Action Button Text");
+		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo iOS", message, "Demo Action Button Text", true);
 		#end
 	}
 	
@@ -197,15 +234,5 @@ class BigButton extends FlxButton {
 		super(text, onPress);
 		scale.set(2, 2);
 		updateHitbox();
-	}
-}
-
-// Button that attempts to cancel the notification associated with it when pressed
-class NotificationButton extends BigButton {
-	public var notification(default, null):Notification;
-	
-	public function new(notification:Notification, onPress:Void->Void) {
-		super(notification.message, onPress);
-		this.notification = notification;
 	}
 }
