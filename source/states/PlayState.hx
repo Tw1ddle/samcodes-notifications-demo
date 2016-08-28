@@ -24,6 +24,8 @@ class PlayState extends FlxState {
 		eventText = new FlxText();
 		add(eventText);
 		
+		addText("Press some buttons...");
+		
 		Lib.current.stage.addEventListener(Event.ACTIVATE, function(p:Dynamic):Void {
 			addText("App received ACTIVATE event");
 			#if (android || ios)

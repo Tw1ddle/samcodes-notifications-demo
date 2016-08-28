@@ -1,6 +1,6 @@
 # Haxe Local Notifications Demo
 
-Local device notifications demo of the [samcodes-notifications](https://github.com/Tw1ddle/samcodes-notifications) haxelib for Android and iOS OpenFL targets.
+Demo of the [samcodes-notifications](https://github.com/Tw1ddle/samcodes-notifications) Android and iOS local notifications haxelib.
 
 ## Usage
 
@@ -10,9 +10,11 @@ This demo requires the local notifications haxelib, so install it first:
 haxelib install samcodes-notifications
 ```
 
-Build and run the app. Press the buttons to schedule some notifications, and then wait for them to appear on your device.
+Build and run the app. Press the buttons to schedule or cancel notifications, and then wait for them to appear on your device.
 
 ## Screenshots
+
+The demo app:
 
 ![Screenshot of demo app](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-demo.png?raw=true "Notification Demo")
 
