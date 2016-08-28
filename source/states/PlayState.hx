@@ -85,7 +85,7 @@ class PlayState extends FlxState {
 	 * Create and schedule a new notification
 	 */
 	private function addNotification():Void {
-		var notification = new Notification(180000);
+		var notification = new Notification(5000);
 		notification.schedule();
 		addText("Added notification '" + notification.message + "' will fire in " + notification.delay + " milliseconds");
 		
