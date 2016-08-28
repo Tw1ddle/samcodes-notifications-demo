@@ -14,6 +14,6 @@ Build and run the app. Press the buttons to schedule some notifications, and the
 
 ## Screenshots
 
-![Screenshot of Android local notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-android.gif?raw=true "Notification Android")
+![Screenshot of Android local notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-android.png?raw=true "Notification Android")
 
-![Screenshot of iOS local notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-ios.gif?raw=true "Notification iOS")
+![Screenshot of iOS local notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-ios.png?raw=true "Notification iOS")
