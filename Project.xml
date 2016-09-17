@@ -28,9 +28,9 @@
 	
 	<haxelib name="flixel" />
 	
-	<!-- Change this line to the version of the push notifications module you want to build against! -->
-	<include path="lib/samcodes-notifications/include.xml" />
-	<!-- <haxelib name="samcodes-notifications" /> -->
+	<!-- Change this line to the version of the local notifications module you want to build against! -->
+	<haxelib name="samcodes-notifications" />
+	<!-- <include path="lib/samcodes-notifications/include.xml" /> -->
 	
 	<!---------------------------------HAXEDEFINES---------------------------------->
 	
