@@ -3,6 +3,7 @@ package states;
 import extension.notifications.Notifications;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxAxes;
@@ -36,10 +37,26 @@ class PlayState extends FlxState {
 			addText("App received DEACTIVATE event");
 		});
 		
-		var addNotificationButton = new BigButton("Add Notification", addNotification);
-		addNotificationButton.screenCenter(FlxAxes.X);
-		addNotificationButton.y = FlxG.height - addNotificationButton.height - 20;
-		add(addNotificationButton);
+		var notificationButtonGroup:FlxSpriteGroup = new FlxSpriteGroup();
+		var addButton = function(text:String, delaySeconds:Float) {
+			var button = new BigButton(text, function() { addNotification(delaySeconds); });
+			notificationButtonGroup.add(button);
+		};
+		addButton("+5 secs", 5.0);
+		addButton("+15 secs", 15.0);
+		addButton("+5 mins", 60.0 * 5.0);
+		addButton("+5 hours", 60.0 * 60.0 * 5.0);
+		addButton("+5 days", 60.0 * 60.0 * 24.0 * 5.0);
+		addButton("+5 months", 60.0 * 60.0 * 24.0 * 31.0 * 5.0);
+		addButton("+5 years", 60.0 * 60.0 * 24.0 * 365.0 * 5.0);
+		notificationButtonGroup.screenCenter(FlxAxes.X);
+		notificationButtonGroup.y = FlxG.height - 20;
+		add(notificationButtonGroup);
+		var height:Float = FlxG.height - 20;
+		for (button in notificationButtonGroup) {
+			height -= button.height - 5;
+			button.y = height;
+		}
 		
 		var clearLogButton = new BigButton("Clear Log", clearLog);
 		clearLogButton.x = 100;
@@ -64,7 +81,7 @@ class PlayState extends FlxState {
 			#end
 		});
 		setRandomBadgeCountButton.screenCenter(FlxAxes.XY);
-		setRandomBadgeCountButton.x -= 150;
+		setRandomBadgeCountButton.x -= 250;
 		add(setRandomBadgeCountButton);
 		
 		var clearBadgeCountButton = new BigButton("Clear Badge Count", function() {
@@ -79,17 +96,17 @@ class PlayState extends FlxState {
 			#end
 		});
 		clearBadgeCountButton.screenCenter(FlxAxes.XY);
-		clearBadgeCountButton.x += 150;
+		clearBadgeCountButton.x += 250;
 		add(clearBadgeCountButton);
 	}
 	
 	/**
 	 * Create and schedule a new notification
 	 */
-	private function addNotification():Void {
-		var notification = new Notification(5000);
+	private function addNotification(delaySeconds:Float):Void {
+		var notification = new Notification(delaySeconds);
 		notification.schedule();
-		addText("Added notification '" + notification.message + "' will fire in " + notification.delay + " milliseconds");
+		addText("Added notification '" + notification.message + "' will fire in " + notification.delay + " seconds");
 		
 		var button = new BigButton(notification.message, function() {
 			#if (android || ios)
@@ -155,12 +172,12 @@ class Notification {
 	public var id(default, null):Int; // Unique id for counting the notifications created so far
 	public var slot(default, null):Int; // Notification slot id
 	public var message(default, null):String; // The notification message to display to the user
-	public var delay(default, null):Int; // The delay in milliseconds between scheduling the notification and firing it
+	public var delay(default, null):Float; // The delay in seconds between scheduling the notification and firing it
 	
 	/**
 	 * Create a new notification
 	 */
-	public function new(delay:Int) {
+	public function new(delay:Float) {
 		this.id = notificationsCreated;
 		this.slot = notificationsCreated % MAX_NOTIFICATION_SLOTS;
 		this.message = "Id: " + notificationsCreated + ", Slot: " + Std.string(notificationsCreated % MAX_NOTIFICATION_SLOTS) + " - " + messages[notificationsCreated % messages.length];
