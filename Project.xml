@@ -75,4 +75,6 @@
 		<!-- Targets Android Marshmallow -->
 		<android target-sdk-version="23" />
 	</section>
+	
+	<icon path="icon.svg" />
 </project>
