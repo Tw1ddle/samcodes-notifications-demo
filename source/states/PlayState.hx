@@ -244,7 +244,7 @@ class Notification {
 
 class BigButton extends FlxButton {
 	public function new(text:String, onPress:Void->Void) {
-		super(text, onPress);
+		super(0, 0, text, onPress);
 		scale.set(2, 2);
 		updateHitbox();
 	}
