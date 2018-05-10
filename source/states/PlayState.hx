@@ -185,6 +185,7 @@ class Notification {
 	
 	public var id(default, null):Int; // Unique id for counting the notifications created so far
 	public var slot(default, null):Int; // Notification slot id
+	public var title(default, null):String; // The title of the notification to display to the user
 	public var message(default, null):String; // The notification message to display to the user
 	public var delay(default, null):Float; // The delay in seconds between scheduling the notification and firing it
 	
@@ -194,6 +195,7 @@ class Notification {
 	public function new(delay:Float) {
 		this.id = notificationsCreated;
 		this.slot = notificationsCreated % MAX_NOTIFICATION_SLOTS;
+		this.title = titles[notificationsCreated % titles.length] + (PlayState.makeNotificationsOngoing ? " - Ongoing " : "");
 		this.message = "Id: " + notificationsCreated + ", Slot: " + Std.string(notificationsCreated % MAX_NOTIFICATION_SLOTS) + " - " + messages[notificationsCreated % messages.length];
 		this.delay = delay;
 		notificationsCreated++;
@@ -204,9 +206,9 @@ class Notification {
 	 */
 	public function schedule():Void {
 		#if android
-		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo Android", "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing);
+		Notifications.scheduleLocalNotification(slot, delay, title, "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing);
 		#elseif ios
-		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo iOS", message, "Demo Action Button Text", true);
+		Notifications.scheduleLocalNotification(slot, delay, title, message, "Demo Action Button Text", true);
 		#end
 	}
 	
@@ -218,6 +220,16 @@ class Notification {
 		Notifications.cancelLocalNotification(slot);
 		#end
 	}
+	
+	// Notification titles
+	private static var titles = [
+		"An App Notification",
+		"Another App Notification",
+		"My App Notification",
+		"Another App Notification",
+		"Yet Another App Notification",
+	];
+	
 	
 	// Notification messages, to say "hello" in lots of languages
 	private static var messages = [
