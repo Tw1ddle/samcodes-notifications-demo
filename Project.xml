@@ -72,8 +72,8 @@
 	<set name="SWF_VERSION" value="11.2" />
 	
 	<section if="android">
-		<!-- Targets Android Marshmallow -->
-		<android target-sdk-version="23" />
+		<!-- Custom default android minimum and target SDKs-->
+		<android minimum-sdk-version="14" target-sdk-version="23" />
 	</section>
 	
 	<icon path="icon.svg" />
