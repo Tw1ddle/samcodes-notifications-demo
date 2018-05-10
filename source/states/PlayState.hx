@@ -94,6 +94,8 @@ class PlayState extends FlxState {
 			PlayState.makeNotificationsOngoing = !PlayState.makeNotificationsOngoing;
 			makeNotificationsOngoingButton.text = "Make Notifications Ongoing" + (PlayState.makeNotificationsOngoing ? "(YES)" : "(NO)");
 		});
+		makeNotificationsOngoingButton.setPosition(setRandomBadgeCountButton.x, setRandomBadgeCountButton.y + setRandomBadgeCountButton.height + 50);
+		add(makeNotificationsOngoingButton);
 		#end
 		
 		var clearBadgeCountButton = new BigButton("Clear Badge Count", function() {
