@@ -15,6 +15,11 @@ class PlayState extends FlxState {
 	private var eventText:FlxText; // Event log text in top left of screen
 	private var notificationButtons:Array<BigButton> = []; // Buttons to manage/cancel notifications in top right of the screen
 	
+	#if android
+	public static var makeNotificationsOngoing(default, null):Bool = false; // Whether notifications will be created with the "ongoing" option set (on Android)
+	private var makeNotificationsOngoingButton:BigButton = null; // Button for toggling whether to create notifications with the "ongoing" option set
+	#end
+	
 	/**
 	 * Setup the demo state
 	 */
@@ -83,6 +88,13 @@ class PlayState extends FlxState {
 		setRandomBadgeCountButton.screenCenter(FlxAxes.XY);
 		setRandomBadgeCountButton.x -= 250;
 		add(setRandomBadgeCountButton);
+		
+		#if android
+		makeNotificationsOngoingButton = new BigButton("Make Notifications Ongoing (NO)", function() {
+			PlayState.makeNotificationsOngoing = !PlayState.makeNotificationsOngoing;
+			makeNotificationsOngoingButton.text = "Make Notifications Ongoing" + (PlayState.makeNotificationsOngoing ? "(YES)" : "(NO)");
+		});
+		#end
 		
 		var clearBadgeCountButton = new BigButton("Clear Badge Count", function() {
 			#if (android || ios)
@@ -190,7 +202,7 @@ class Notification {
 	 */
 	public function schedule():Void {
 		#if android
-		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo Android", "Demo Subtitle Text", message, "Demo Ticker Text", true);
+		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo Android", "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing);
 		#elseif ios
 		Notifications.scheduleLocalNotification(slot, delay, "Notifications Demo iOS", message, "Demo Action Button Text", true);
 		#end
