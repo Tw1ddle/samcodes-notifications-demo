@@ -24,13 +24,18 @@
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
 	
+	<!-- Copy custom notification icons into the root of the demo's Android resources drawable folder, so we can show icons alongside notifications on Android -->
+	<!-- Note that these are being copied into the drawable resources folder of the demo application - not the notifications extension itself -->
+	<!-- With minor tweaks to the implementation, I think the icons could be stored in the extension res folder instead -->
+	<assets path="assets/icons" rename="app/src/main/res/drawable" type="template" />
+	
 	<!--------------------------------LIBRARIES------------------------------------->
 	
 	<haxelib name="flixel" />
 	
 	<!-- Change this line to the version of the local notifications module you want to build against! -->
-	<haxelib name="samcodes-notifications" />
-	<!-- <include path="lib/samcodes-notifications/include.xml" /> -->
+	<!-- <haxelib name="samcodes-notifications" /> -->
+	<include path="lib/samcodes-notifications/include.xml" />
 	
 	<!---------------------------------HAXEDEFINES---------------------------------->
 	

@@ -189,6 +189,11 @@ class Notification {
 	public var message(default, null):String; // The notification message to display to the user
 	public var delay(default, null):Float; // The delay in seconds between scheduling the notification and firing it
 	
+	#if android
+	public var smallIconName(default, null):String; // Name of the small icon to show with the notification
+	public var largeIconName(default, null):String; // Name of the large icon to show with the notification
+	#end
+	
 	/**
 	 * Create a new notification
 	 */
@@ -198,6 +203,12 @@ class Notification {
 		this.title = titles[notificationsCreated % titles.length] + (PlayState.makeNotificationsOngoing ? " - Ongoing " : "");
 		this.message = "Id: " + notificationsCreated + ", Slot: " + Std.string(notificationsCreated % MAX_NOTIFICATION_SLOTS) + " - " + messages[notificationsCreated % messages.length];
 		this.delay = delay;
+		
+		#if android
+		this.smallIconName = iconNames[notificationsCreated % iconNames.length];
+		this.largeIconName = iconNames[notificationsCreated % iconNames.length];
+		#end
+		
 		notificationsCreated++;
 	}
 	
@@ -206,7 +217,7 @@ class Notification {
 	 */
 	public function schedule():Void {
 		#if android
-		Notifications.scheduleLocalNotification(slot, delay, title, "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing);
+		Notifications.scheduleLocalNotification(slot, delay, title, "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing, smallIconName, largeIconName);
 		#elseif ios
 		Notifications.scheduleLocalNotification(slot, delay, title, message, "Demo Action Button Text", true);
 		#end
@@ -266,6 +277,24 @@ class Notification {
 		"Turkish – Merhaba",
 		"Ukrainian – Dobriy den"
 	];
+	
+	#if android
+	// Notification icon names - so we can show a variety of icons with notifications on Android
+	// Images with these names are included in the root of the Android package resources through Project.xml
+	// Note the lack of file extensions
+	private static var iconNames = [
+		"red_64x64",
+		"green_64x64",
+		"blue_64x64",
+		"white_64x64",
+		"black_64x64",
+		"red_circle_128x128",
+		"green_circle_128x128",
+		"blue_circle_128x128",
+		"white_circle_128x128",
+		"black_circle_128x128"
+	];
+	#end
 }
 
 class BigButton extends FlxButton {
