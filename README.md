@@ -22,6 +22,10 @@ Android notifications and badging. Badging is done using [ShortcutBadger](https:
 
 ![Screenshot of Android local notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-android.png?raw=true "Notification Android")
 
+Android notification with custom notification icons:
+
+![Screenshot of Android notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-android-custom-icons.png?raw=true "Notification Android")
+
 iOS notifications and badging:
 
 ![Screenshot of iOS local notification](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/screenshots/notification-ios.png?raw=true "Notification iOS")
