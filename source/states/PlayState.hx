@@ -200,7 +200,7 @@ class Notification {
 	public function new(delay:Float) {
 		this.id = notificationsCreated;
 		this.slot = notificationsCreated % MAX_NOTIFICATION_SLOTS;
-		this.title = titles[notificationsCreated % titles.length] + (PlayState.makeNotificationsOngoing ? " - Ongoing " : "");
+		this.title = titles[notificationsCreated % titles.length] + #if android (PlayState.makeNotificationsOngoing ? " - Ongoing " : "") #else "" #end;
 		this.message = "Id: " + notificationsCreated + ", Slot: " + Std.string(notificationsCreated % MAX_NOTIFICATION_SLOTS) + " - " + messages[notificationsCreated % messages.length];
 		this.delay = delay;
 		

@@ -1,0 +1,39 @@
+language: haxe
+
+matrix:
+  include:
+    - os: linux
+      sudo: required
+      dist: trusty
+    - os: osx
+      osx_image: xcode9.3
+
+# Get and install nightly hxcpp since 3.4.0 haxelib release is broken for recent iOS
+before_install:
+  - wget http://nmehost.com/releases/hxcpp/hxcpp-3.4.214.zip
+  - haxelib install hxcpp-3.4.214.zip
+
+# Install dependencies
+install:
+  - haxelib install lime
+  - haxelib install openfl
+  - haxelib install flixel
+  - haxelib list
+
+# Build the haxelib, then build the demo
+script:
+  # Build for regular targets with no ad SDKs set up
+  - haxelib run openfl build "Project.xml" flash
+  - haxelib run openfl build "Project.xml" html5 -minify -release
+  
+  #- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then haxelib run openfl build "Project.xml" android ; fi # Would have to install Android SDK, NDK etc
+
+  # Build the haxelib ndlls for iOS
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    pushd lib/samcodes-notifications/project;
+    chmod +x rebuild_ndlls.sh;
+    ./rebuild_ndlls.sh;
+    popd;
+    fi
+
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then haxelib run openfl build "Project.xml" ios -simulator ; fi
