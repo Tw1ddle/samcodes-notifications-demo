@@ -1,6 +1,7 @@
 # Haxe Local Notifications Demo
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/Tw1ddle/samcodes-notifications-demo/blob/master/LICENSE)
+[![Travis Build Status](https://img.shields.io/travis/Tw1ddle/samcodes-notifications-demo.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/samcodes-notifications-demo)
 
 Demo of the [samcodes-notifications](https://github.com/Tw1ddle/samcodes-notifications) Android and iOS local notifications haxelib.
 
