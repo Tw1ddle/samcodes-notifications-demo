@@ -78,7 +78,7 @@
 	
 	<section if="android">
 		<!-- Custom default android minimum and target SDKs-->
-		<android minimum-sdk-version="14" target-sdk-version="23" />
+		<android minimum-sdk-version="14" target-sdk-version="28" />
 	</section>
 	
 	<icon path="icon.svg" />

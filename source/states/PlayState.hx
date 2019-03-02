@@ -217,7 +217,7 @@ class Notification {
 	 */
 	public function schedule():Void {
 		#if android
-		Notifications.scheduleLocalNotification(slot, delay, title, "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing, smallIconName, largeIconName);
+		Notifications.scheduleLocalNotification(slot, delay, title, "Demo Subtitle Text", message, "Demo Ticker Text", true, PlayState.makeNotificationsOngoing, smallIconName, largeIconName, "demo_notification_channel", "Demo Notification Channel", "Notification channel used for this demo app", NotificationImportance.DEFAULT);
 		#elseif ios
 		Notifications.scheduleLocalNotification(slot, delay, title, message, "Demo Action Button Text", true);
 		#end
