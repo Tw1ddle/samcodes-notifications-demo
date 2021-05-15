@@ -201,7 +201,7 @@ class Notification {
 		this.id = notificationsCreated;
 		this.slot = notificationsCreated % MAX_NOTIFICATION_SLOTS;
 		this.title = titles[notificationsCreated % titles.length] + #if android (PlayState.makeNotificationsOngoing ? " - Ongoing " : "") #else "" #end;
-		this.message = "Id: " + notificationsCreated + ", Slot: " + Std.string(notificationsCreated % MAX_NOTIFICATION_SLOTS) + " - " + messages[notificationsCreated % messages.length];
+		this.message = "Id: " + Std.string(notificationsCreated) + ", Slot: " + Std.string(notificationsCreated % MAX_NOTIFICATION_SLOTS) + " - " + messages[notificationsCreated % messages.length];
 		this.delay = delay;
 		
 		#if android
@@ -233,7 +233,7 @@ class Notification {
 	}
 	
 	// Notification titles
-	private static var titles = [
+	private static var titles:Array<String> = [
 		"An App Notification",
 		"Another App Notification",
 		"My App Notification",
@@ -241,9 +241,8 @@ class Notification {
 		"Yet Another App Notification",
 	];
 	
-	
 	// Notification messages, to say "hello" in lots of languages
-	private static var messages = [
+	private static var messages:Array<String> = [
 		"Albanian – Përshëndetje",
 		"Armenian – Barev Dzez",
 		"Bulgarian – Zdraveĭte",
@@ -282,7 +281,7 @@ class Notification {
 	// Notification icon names - so we can show a variety of icons with notifications on Android
 	// Images with these names are included in the root of the Android package resources through Project.xml
 	// Note the lack of file extensions
-	private static var iconNames = [
+	private static var iconNames:Array<String> = [
 		"red_64x64",
 		"green_64x64",
 		"blue_64x64",
