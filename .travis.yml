@@ -4,9 +4,9 @@ matrix:
   include:
     - os: linux
       sudo: required
-      dist: trusty
+      dist: focal
     - os: osx
-      osx_image: xcode9.3
+      osx_image: xcode12.5
 
 # Install dependencies
 install:
