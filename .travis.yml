@@ -8,13 +8,9 @@ matrix:
     - os: osx
       osx_image: xcode9.3
 
-# Get and install nightly hxcpp since 3.4.0 haxelib release is broken for recent iOS
-before_install:
-  - wget http://nmehost.com/releases/hxcpp/hxcpp-3.4.214.zip
-  - haxelib install hxcpp-3.4.214.zip
-
 # Install dependencies
 install:
+  - haxelib install hxcpp
   - haxelib install lime
   - haxelib install openfl
   - haxelib install flixel
